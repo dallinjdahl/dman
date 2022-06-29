@@ -1,0 +1,39 @@
+#!/usr/bin/execlineb -P
+backtick -E page {
+	pipeline { man -k . }
+	pipeline { cut -d" " -f1,2 }
+	pipeline { tr -d "()" }
+	pipeline { tr " " "." }
+	pipeline { sort }
+	dmenu
+}
+
+backtick -E entry {
+	pipeline { echo $page }
+	sed -E "s/\.[^\.]+*$//"
+}
+
+backtick -E section {
+	pipeline { echo $page }
+	sed -E "s/.*\.//"
+}
+
+ifte {
+	backtick -E 9page {
+		pipeline { echo $page }
+		sed -E "s/;$//"
+	}
+
+	backtick -E tsection {
+		pipeline { echo $section }
+		sed -E "s/;$//"
+	}
+
+	st -t "9man: "$9page execlineb -c
+	"pipeline { 9 man "${tsection}" "${entry}" } pipeline { col -b } less"
+}
+
+{ st -t "man: "$page man $section $entry }
+
+pipeline { echo $page }
+grep ";$"

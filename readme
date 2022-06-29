@@ -1,0 +1,24 @@
+dman
+
+This script is a dmenu[1] interface to the library of currently installed
+man pages using the execline[2] scripting language.  The current version also
+has support for viewing plan9port[3] man pages by adding ; to the input.
+By default this terminal is st[4].
+
+pkg/install
+
+This script is designed to create a symlink to the dman script in a
+location easily appended to the PATH variable.  By default, it creates
+the symlink at ../../bin, which assumes an organization similar to
+the following, inspired by DJB's /package hierarchy[5]:
+
+sys: root for sysadmin files (not necessarily in root)
+sys/bin: symlinks to all binaries intended to be run by the end user.
+sys/pkg: root for packages, including source code, config, and binaries.
+sys/pkg/dman: dman package
+
+[1] tools.suckless.org/dmenu
+[2] skarnet.org/software/execline
+[3] 9fans.github.io/plan9port
+[4] st.suckless.org
+[5] cr.yp.to/slashpackage.html
