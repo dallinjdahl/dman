@@ -9,13 +9,13 @@ backtick -E page {
 }
 
 backtick -E entry {
-	pipeline { echo $page }
-	sed -E "s/\.[^\.]+*$//"
+	pipeline { echo ${page} }
+	sed -E "s/\\.[^\\.]+*$//"
 }
 
 backtick -E section {
-	pipeline { echo $page }
-	sed -E "s/.*\.//"
+	pipeline { echo ${page} }
+	sed -E "s/.*\\.//"
 }
 
 ifte {
@@ -33,7 +33,7 @@ ifte {
 	"pipeline { 9 man "${tsection}" "${entry}" } pipeline { col -b } less"
 }
 
-{ st -t "man: "$page man $section $entry }
+{ st -t "man: "${page} man ${section} ${entry} }
 
 pipeline { echo $page }
 grep ";$"
